@@ -26,7 +26,7 @@ updated: 2026-04-07
 | # | Item | Priority | Complexity | Status | Notes |
 |---|------|----------|------------|--------|-------|
 | P-01 | **Audit luồng review skill** — kiểm tra gap giữa 2 phiên bản brd-reviewer, xác nhận luồng file đang đi đúng chưa | 🔥 Cao | 🟢 Thấp | ✅ Done | Xem `Work Notes/2026-04-07-review-audit.md` |
-| P-02 | **Skill lập kế hoạch tham vọng** — skill giúp decompose mục tiêu lớn thành sprint, estimate, milestone | 🔥 Cao | 🟡 TB | 📋 Backlog | Cần thiết trước khi kick off O3 KR2 |
+| P-02 | **Skill lập kế hoạch tham vọng** — skill giúp decompose mục tiêu lớn thành sprint, estimate, milestone | 🔥 Cao | 🟡 TB | ✅ Done | `Planning/planning-skill.md` — 3 horizon: strategic/sprint/daily |
 | P-03 | **Master Agent end-to-end** — orchestrator điều phối toàn bộ pipeline BRD → Review → Test → Spec | 🔥 Cao | 🔴 Cao | ✅ Done | `Test/ba-master-agent.md` — Phase 0–5, revision loop, self-eval, DoD |
 
 ---
