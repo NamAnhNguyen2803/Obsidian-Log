@@ -68,24 +68,24 @@ tags:
 
 > **Trigger:** Sender chọn chức năng "Chuyển tiền" trên màn hình chính Wallet App.
 
-| Step | Actor | Action | System Response |
-|---|---|---|---|
-| 1 | Sender | Mở Wallet App, chọn **"Chuyển tiền"** | Hiển thị màn hình nhập thông tin chuyển tiền |
-| 2 | Sender | Nhập số điện thoại / Wallet ID của Receiver | Hệ thống tra cứu ví theo số điện thoại/ID |
-| 3 | System | Xác thực Receiver | Kiểm tra: ví tồn tại, trạng thái ACTIVE → Hiển thị tên Receiver để Sender xác nhận |
-| 4 | Sender | Xác nhận đúng Receiver, nhập **số tiền** chuyển | Hiển thị số tiền, kiểm tra format (số dương, ≥ 1.000 VND) |
-| 5 | System | Kiểm tra validation | VR-01 đến VR-06: số dư, hạn mức ngày/tháng/nhóm, không chuyển chính mình |
-| 6 | Sender | Nhập **nội dung chuyển tiền** (tuỳ chọn) | Ghi nhận nội dung (≤ 200 ký tự) |
-| 7 | Sender | Xác nhận giao dịch bằng **PIN / Biometric** | Xác thực danh tính Sender |
-| 8 | System | Tạo Transaction ID (TxnID), ghi nhận trạng thái **PROCESSING** | Log: TxnID, SenderID, ReceiverID, Amount, Timestamp |
-| 9 | System | Gọi CBS: **Debit ví Sender** (Dr 3388200000 — Sender) | CBS trừ số dư ví Sender |
-| 10 | System | CBS xác nhận debit thành công | Trả về CBS Confirmation Code |
-| 11 | System | Gọi CBS: **Credit ví Receiver** (Cr 3388200000 — Receiver) | CBS cộng số dư ví Receiver |
-| 12 | System | CBS xác nhận credit thành công | Trả về CBS Confirmation Code |
-| 13 | System | Trigger **GL Posting**: Dr 3388200000 (Sender) / Cr 3388200000 (Receiver) | GL Module ghi nhận bút toán kép |
-| 14 | System | Cập nhật trạng thái giao dịch → **COMPLETED** | Lưu transaction record đầy đủ |
-| 15 | System | Gửi **push notification** cho Sender và Receiver | Sender: thành công; Receiver: nhận tiền |
-| 16 | Sender | Xem màn hình kết quả giao dịch | Hiển thị: TxnID, số tiền, tên Receiver, thời gian, số dư còn lại |
+| Step | Actor  | Action                                                                    | System Response                                                                    |
+| ---- | ------ | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| 1    | Sender | Mở Wallet App, chọn **"Chuyển tiền"**                                     | Hiển thị màn hình nhập thông tin chuyển tiền                                       |
+| 2    | Sender | Nhập số điện thoại / Wallet ID của Receiver                               | Hệ thống tra cứu ví theo số điện thoại/ID                                          |
+| 3    | System | Xác thực Receiver                                                         | Kiểm tra: ví tồn tại, trạng thái ACTIVE → Hiển thị tên Receiver để Sender xác nhận |
+| 4    | Sender | Xác nhận đúng Receiver, nhập **số tiền** chuyển                           | Hiển thị số tiền, kiểm tra format (số dương, ≥ 1.000 VND)                          |
+| 5    | System | Kiểm tra validation                                                       | VR-01 đến VR-06: số dư, hạn mức ngày/tháng/nhóm, không chuyển chính mình           |
+| 6    | Sender | Nhập **nội dung chuyển tiền** (tuỳ chọn)                                  | Ghi nhận nội dung (≤ 200 ký tự)                                                    |
+| 7    | Sender | Xác nhận giao dịch bằng **PIN / Biometric**                               | Xác thực danh tính Sender                                                          |
+| 8    | System | Tạo Transaction ID (TxnID), ghi nhận trạng thái **PROCESSING**            | Log: TxnID, SenderID, ReceiverID, Amount, Timestamp                                |
+| 9    | System | Gọi CBS: **Debit ví Sender** (Dr 3388200000 — Sender)                     | CBS trừ số dư ví Sender                                                            |
+| 10   | System | CBS xác nhận debit thành công                                             | Trả về CBS Confirmation Code                                                       |
+| 11   | System | Gọi CBS: **Credit ví Receiver** (Cr 3388200000 — Receiver)                | CBS cộng số dư ví Receiver                                                         |
+| 12   | System | CBS xác nhận credit thành công                                            | Trả về CBS Confirmation Code                                                       |
+| 13   | System | Trigger **GL Posting**: Dr 3388200000 (Sender) / Cr 3388200000 (Receiver) | GL Module ghi nhận bút toán kép                                                    |
+| 14   | System | Cập nhật trạng thái giao dịch → **COMPLETED**                             | Lưu transaction record đầy đủ                                                      |
+| 15   | System | Gửi **push notification** cho Sender và Receiver                          | Sender: thành công; Receiver: nhận tiền                                            |
+| 16   | Sender | Xem màn hình kết quả giao dịch                                            | Hiển thị: TxnID, số tiền, tên Receiver, thời gian, số dư còn lại                   |
 
 ---
 
@@ -213,26 +213,26 @@ tags:
 
 ### D.3 Audit & Compliance Logging
 
-| Event | Fields to Log | Basis |
-|---|---|---|
-| Transaction Initiated | TxnID, SenderID, ReceiverID, Amount, Timestamp, Channel | Internal Audit |
-| Authentication | TxnID, UserID, AuthMethod, Result, Timestamp | Security Policy |
-| CBS Debit/Credit | TxnID, CBS_ConfirmCode, Amount, ValueDate | Finance Ops |
-| GL Posting | TxnID, Dr_GL, Cr_GL, Amount, PostingTimestamp | Finance Ops |
-| Transaction Completed | TxnID, FinalStatus, Timestamp | Compliance |
+| Event                 | Fields to Log                                           | Basis           |
+| --------------------- | ------------------------------------------------------- | --------------- |
+| Transaction Initiated | TxnID, SenderID, ReceiverID, Amount, Timestamp, Channel | Internal Audit  |
+| Authentication        | TxnID, UserID, AuthMethod, Result, Timestamp            | Security Policy |
+| CBS Debit/Credit      | TxnID, CBS_ConfirmCode, Amount, ValueDate               | Finance Ops     |
+| GL Posting            | TxnID, Dr_GL, Cr_GL, Amount, PostingTimestamp           | Finance Ops     |
+| Transaction Completed | TxnID, FinalStatus, Timestamp                           | Compliance      |
 
 ---
 
 ## E1. AMOUNT LIMIT MATRIX
 
-| Limit Type | Scope | Value | Config Level | Notes |
-|---|---|---|---|---|
-| Minimum per Transaction | Per Txn | 1.000 VND | System | VR-01 |
-| Maximum per Transaction | Per Txn | Không giới hạn | System | Per bảng hạn mức dịch vụ |
-| Daily Limit | Per User (P2P) | 50.000.000 VND | Role | Tính chung nhóm P2P |
-| Monthly Limit | Per User (P2P) | 100.000.000 VND | Role | Tính chung nhóm P2P |
-| Group Daily Limit | P2P + Bank Transfer + Payment | 50.000.000 VND | System | ERR-LMT-001 khi vượt |
-| Group Monthly Limit | P2P + Bank Transfer + Payment | 100.000.000 VND | System | ERR-LMT-002 khi vượt |
+| Limit Type              | Scope                         | Value           | Config Level | Notes                    |
+| ----------------------- | ----------------------------- | --------------- | ------------ | ------------------------ |
+| Minimum per Transaction | Per Txn                       | 1.000 VND       | System       | VR-01                    |
+| Maximum per Transaction | Per Txn                       | Không giới hạn  | System       | Per bảng hạn mức dịch vụ |
+| Daily Limit             | Per User (P2P)                | 50.000.000 VND  | Role         | Tính chung nhóm P2P      |
+| Monthly Limit           | Per User (P2P)                | 100.000.000 VND | Role         | Tính chung nhóm P2P      |
+| Group Daily Limit       | P2P + Bank Transfer + Payment | 50.000.000 VND  | System       | ERR-LMT-001 khi vượt     |
+| Group Monthly Limit     | P2P + Bank Transfer + Payment | 100.000.000 VND | System       | ERR-LMT-002 khi vượt     |
 
 **Error on limit breach:** ERR-LMT-001 (ngày) | ERR-LMT-002 (tháng) | ERR-LMT-003 (nhóm)
 
@@ -262,9 +262,9 @@ Không áp dụng.
 
 > **Nguyên tắc:** Giao dịch nội bộ — tiền không rời hệ thống ví. Chỉ cần 1 bước posting.
 
-| Dr/Cr | GL Code | GL Name | Formula / Amount |
-|---|---|---|---|
-| **Dr** | 3388200000 | V-Smart Pay Wallet — Individual Customers (Sender) | Principal (Amount) |
+| Dr/Cr  | GL Code    | GL Name                                              | Formula / Amount   |
+| ------ | ---------- | ---------------------------------------------------- | ------------------ |
+| **Dr** | 3388200000 | V-Smart Pay Wallet — Individual Customers (Sender)   | Principal (Amount) |
 | **Cr** | 3388200000 | V-Smart Pay Wallet — Individual Customers (Receiver) | Principal (Amount) |
 
 > **Ghi chú:** Cùng GL Code 3388200000 nhưng sub-account khác nhau (phân biệt bởi CustomerID/WalletID tại CBS level).
