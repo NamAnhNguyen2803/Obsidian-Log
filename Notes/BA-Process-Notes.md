@@ -26,5 +26,4 @@ First time login -
 Review
 Đối với onboarding - mô tả chi tiết từng action, ví dụ sau khi nhập OTP sẽ link device với phone, sau khi nhập PIn xong sẽ lưu lại authen và update user status sang pending
 Ncl các phần user status, working state, link device ,authen, pocket
-
 BRD - onboarding đang thiếu luồng của compliance
